@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Navigation Menu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav id="navbar">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <!-- Content sections -->
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
+
+style.css */
+
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Style for the body */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+/* Fixed navigation bar */
+#navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #333;
+    transition: background-color 0.3s ease;
+    z-index: 1000;
+}
+
+/* Navigation menu items */
+#navbar ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+}
+
+#navbar li {
+    margin: 0 15px;
+}
+
+#navbar a {
+    color: #f2f2f2;
+    text-decoration: none;
+    padding: 15px 0;
+    display: block;
+    transition: color 0.3s ease;
+}
+
+/* Hover effect */
+#navbar a:hover {
+    color: #ff6347;
+}
+
+/* Style when the navbar is scrolled */
+.scrolled {
+    background-color: #222;
+}
+
+/* Main content sections */
+main {
+    padding-top: 60px; /* Height of the navbar */
+}
+
+section {
+    padding: 100px 20px;
+    height: 100vh;
+}
+
+// script.js
+
+// Select the navbar
+const navbar = document.getElementById('navbar');
+
+// Function to add or remove 'scrolled' class based on scroll position
+function handleScroll() {
+    if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+}
+
+// Listen for scroll events
+window.addEventListener('scroll', handleScroll);
