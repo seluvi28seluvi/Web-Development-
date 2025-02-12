@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stopwatch</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="stopwatch">
+    <div id="display">00:00:00</div>
+    <div class="controls">
+      <button id="start">Start</button>
+      <button id="pause">Pause</button>
+      <button id="reset">Reset</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.stopwatch {
+  text-align: center;
+}
+
+#display {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+let startTime, updatedTime, difference;
+let timerInterval;
+let running = false;
+
+const display = document.getElementById('display');
+const startButton = document.getElementById('start');
+const pauseButton = document.getElementById('pause');
+const resetButton = document.getElementById('reset');
+
+function startTimer() {
+  if (!running) {
+    startTime = new Date().getTime() - (difference || 0);
+    timerInterval = setInterval(updateDisplay, 1000);
+    running = true;
+  }
+}
+
+function pauseTimer() {
+  if (running) {
+    clearInterval(timerInterval);
+    difference = new Date().getTime() - startTime;
+    running = false;
+  }
+}
+
+function resetTimer() {
+  clearInterval(timerInterval);
+  running = false;
+  difference = 0;
+  display.textContent = '00:00:00';
+}
+
+function updateDisplay() {
+  updatedTime = new Date().getTime();
+  difference = updatedTime - startTime;
+
+  const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+  display.textContent = 
+    `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+}
+
+startButton.addEventListener('click', startTimer);
+pauseButton.addEventListener('click', pauseTimer);
+resetButton.addEventListener('click', resetTimer);
